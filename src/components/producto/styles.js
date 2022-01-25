@@ -3,14 +3,14 @@ import { StyleSheet, Dimensions } from 'react-native';
 const { height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-    container: {
+    containerTouchable: {
         flex: 1,
         height: height / 4,
         borderRadius: 6,
         margin: 15,
         justifyContent: 'center'
     },
-    containerTouchable: {
+    container: {
         flex: 1,
         borderRadius: 6,
         shadowColor: 'black',
@@ -19,11 +19,14 @@ const styles = StyleSheet.create({
         elevation: 5,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 8
+        padding: 20
     },
     title: {
         fontWeight: 'bold',
         fontSize: 15
+    },
+    details: {
+        fontSize: 13
     }
 });
 

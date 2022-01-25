@@ -7,11 +7,14 @@ import {
 
 import styles from './styles.js';
 
-const DetalleProducto = () => {
+const DetalleProducto = ({ route }) => {
+    const { producto } = route.params;
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.container}>
-                <Text>Detalle Producto</Text>
+                <Text>{producto.descripcion}</Text>
+                <Text>{producto.peso}</Text>
+                <Text>$ {producto.precio}</Text>
             </View>
         </SafeAreaView>
     );

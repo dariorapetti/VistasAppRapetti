@@ -34,7 +34,12 @@ const AppNavigation = () => {
                     }
                 })}
             />
-            <Stack.Screen name="DetalleProducto" component={DetalleProducto} />
+            <Stack.Screen 
+                name="DetalleProducto" 
+                component={DetalleProducto}
+                options={({ route }) => ({
+                    title: route.params.name
+                })} />
         </Stack.Navigator>
     </NavigationContainer>
   );
