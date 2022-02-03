@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator();
 const CartStackNavigation = () => {
   return (   
         <Stack.Navigator 
-            initialRouteName="Orders"
+            initialRouteName="Cart"
             screenOptions={{
                 headerStyle:{
                     backgroundColor: Platform.OS === 'android'  ? COLORS.primary : ''

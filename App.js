@@ -8,11 +8,15 @@
 
 import React from 'react';
 import AppNavigation from './src/navigation/index';
+import { Provider } from 'react-redux';
+import store from './src/store/index';
 
 
 const App = () => {
   return (
-    <AppNavigation />
+      <Provider store={store}>
+          <AppNavigation />
+      </Provider>
   );
 };
 
