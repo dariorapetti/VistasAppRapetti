@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     SafeAreaView, 
     View,
@@ -6,18 +6,21 @@ import {
 } from 'react-native';
 
 import styles from './styles.js';
-import { PANES } from '../../utils/data/panes';
+import { useSelector, useDispatch } from 'react-redux';
 import Producto from  '../../components/producto/index.js';
+import { filterPan, selectPan } from '../../store/actions/pan.action.js';
 
 const Productos = ({ navigation, route }) => {
-    const panes = PANES.filter(pan => pan.categoria === route.params.categoryId );
+    const dispatch = useDispatch();
+
+    const panes = useSelector(state => state.panes.panesFiltrados);
+    const categoria = useSelector(state => state.categorias.selected);
 
     const handleSelectedProduct = (item) => {
+        dispatch(selectPan(item.id));
         navigation.navigate('DetalleProducto', 
         {
-            productId: item.id,
-            name: item.nombre,
-            producto: item
+            name: item.nombre
         });
     }
 
@@ -26,6 +29,10 @@ const Productos = ({ navigation, route }) => {
             <Producto item={item} onSelected={handleSelectedProduct} />
         )
     }
+
+    useEffect(() => {
+        dispatch(filterPan(categoria.id));
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>

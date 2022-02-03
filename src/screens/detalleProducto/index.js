@@ -6,9 +6,11 @@ import {
 } from 'react-native';
 
 import styles from './styles.js';
+import { useSelector } from 'react-redux';
 
-const DetalleProducto = ({ route }) => {
-    const { producto } = route.params;
+const DetalleProducto = () => {
+    const producto = useSelector(state => state.panes.selected);
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.container}>

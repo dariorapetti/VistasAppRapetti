@@ -5,15 +5,20 @@ import {
     FlatList
 } from 'react-native';
 import Categoria from '../../components/categoria/index.js';
-import { CATEGORIES } from '../../utils/data/categorias.js';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectCategoria } from '../../store/actions/categoria.action.js';
 
 import styles from './styles.js';
 
 const Categorias = ({ navigation }) => {
+    const dispatch = useDispatch();
+
+    const categorias = useSelector(state => state.categorias.categorias);
+
     const handleSelectedCategory = (item) => {
+        dispatch(selectCategoria(item.id));
         navigation.navigate('Productos', 
         {
-            categoryId: item.id, 
             name: item.title,
             color: item.color
         });
@@ -28,7 +33,7 @@ const Categorias = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
             <View style={styles.container}>
                 <FlatList
-                    data={CATEGORIES}
+                    data={categorias}
                     renderItem={renderCategories}
                     keyExtractor={item => item.id}
                 />
