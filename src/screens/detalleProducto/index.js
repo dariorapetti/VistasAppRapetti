@@ -2,14 +2,18 @@ import React from 'react';
 import {
     SafeAreaView, 
     Text, 
-    View
+    View,
+    Button
 } from 'react-native';
 
 import styles from './styles.js';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addItem } from '../../store/actions/cart.action.js';
 
 const DetalleProducto = () => {
+    const dispatch = useDispatch();
     const producto = useSelector(state => state.panes.selected);
+    const handleAddItemCart = () => dispatch(addItem(producto));
 
     return (
         <SafeAreaView style={styles.container}>
@@ -17,6 +21,7 @@ const DetalleProducto = () => {
                 <Text>{producto.descripcion}</Text>
                 <Text>{producto.peso}</Text>
                 <Text>$ {producto.precio}</Text>
+                <Button title="Agregar al carrito" onPress={() => handleAddItemCart()} />
             </View>
         </SafeAreaView>
     );
