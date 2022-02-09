@@ -29,13 +29,12 @@ export const confirmCart = (payload, total) => {
                 })
             });
             const result = await response.json();
-            console.warn(result);
             dispatch({
                 type: CONFIRM_CART,
                 confirm: true
             });
         } catch (error) {
-            console.warn(error);
+            console.warn(error.message);
         }
 
     }

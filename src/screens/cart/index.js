@@ -5,13 +5,14 @@ import ProductoCart from '../../components/producto-cart/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeItem, confirmCart } from '../../store/actions/cart.action.js';
 
-const Cart = () => {
+const Cart = ({ navigation }) => {
     const dispatch = useDispatch();
     const items = useSelector(state => state.cart.items);
     const total = useSelector(state => state.cart.total);
     
     const handleConfirm = () => {
         dispatch(confirmCart(items, total));
+        navigation.navigate("Orders");
     }
 
     const handleDelete = (id) => {
