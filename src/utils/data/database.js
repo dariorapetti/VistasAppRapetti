@@ -1,1 +1,3 @@
-export const URL_API = 'https://proyectocoder-25572-default-rtdb.firebaseio.com/';
+export const URL_API = '';
+
+export const URL_AUTH = '';
