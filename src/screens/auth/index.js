@@ -1,8 +1,38 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity, KeyboardAvoidingView, Button } from 'react-native';
+import React, { useState, useReducer, useCallback } from 'react';
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Button } from 'react-native';
 import styles from './styles.js';
 import { useDispatch } from 'react-redux';
-import { signup, signin } from '../../store/actions/auth.action'
+import { signup, signin } from '../../store/actions/auth.action';
+
+const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
+
+export const formReducer = (state, action) => {
+    if(action.type === FORM_INPUT_UPDATE){
+        const inputValues = {
+            ...state.inputValues,
+            [action.input]: action.value
+        }
+
+        const inputValidities = {
+            ...state.inputValidities,
+            [action.input]: action.isValid
+        }
+
+        let formIsValid = true;
+
+        for(const key in inputValidities){
+            formIsValid = inputValidities[key] && formIsValid;
+        }
+
+        return {
+            formIsValid,
+            inputValues,
+            inputValidities
+        }
+    }
+
+    return state;
+}
 
 const Auth = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -10,6 +40,17 @@ const Auth = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLogin, setIsLogin] = useState('');
+    const [formState, formDispatch] = useReducer(formReducer, {
+        inputValues:{
+            email: '',
+            password: ''
+        },
+        inputValidities:{
+            email: false,
+            password: false
+        },
+        formIsValid: false
+    })
 
     const handleAuth = () => {
         if(isLogin) {
@@ -18,6 +59,15 @@ const Auth = ({ navigation }) => {
             dispatch(signup(email, password));
         } 
     }
+
+    const handleInputChange = useCallback((inputIdentifier, inputValue, inputValidity) => {
+        formDispatch({
+            type: FORM_INPUT_UPDATE,
+            value: inputValue,
+            isValid: inputValidity,
+            input: inputIdentifier
+        });
+    }, [formDispatch]);
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior="height" enabled>
